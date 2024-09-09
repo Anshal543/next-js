@@ -2,19 +2,24 @@ import { createClient } from "@/supabase/client";
 import Card from "@/components/card";
 
 export default async function Home() {
-  const products = [
-    {
-      id: 0,
-      name: "Mushroom Orange Lamp",
-      description: "Mushroom Orange Lamp desc",
-      price: 100,
-      imageUrl:
-        "http://res.cloudinary.com/anshal/image/upload/v1725383949/kwx7etferjsufhumozom.jpg",
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 0,
+  //     name: "Mushroom Orange Lamp",
+  //     description: "Mushroom Orange Lamp desc",
+  //     price: 100,
+  //     imageUrl:
+  //       "http://res.cloudinary.com/anshal/image/upload/v1725383949/kwx7etferjsufhumozom.jpg",
+  //   },
+  // ];
   const supabase = createClient();
-  const { data, error } = await supabase.from("easysell=products").select();
-
+  const { data: products, error } = await supabase
+    .from("easysell-products")
+    .select();
+  // console.log(data);
+  if (!products) {
+    return <p>NO PRODUCTS</p>;
+  }
   return (
     <main className="min-h-screen mx-auto max-w-[100rem]">
       <div className="px-12 pt-12 pb-20">
@@ -25,14 +30,22 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-12">
             {products.map((product) => (
-              <Card key={`${product.name}-${product.id}`} {...product} />
+              <Card
+                key={`${product.name}-${product.id}`}
+                {...product}
+                imageUrl={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
+              />
             ))}
           </div>
         </div>
         <h2 className="text-4xl mt-20 mb-16">ALL PRODUCTS</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {products.map((product) => (
-            <Card key={`${product.name}-${product.id}`} {...product} />
+            <Card
+              key={`${product.name}-${product.id}`}
+              {...product}
+              imageUrl={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
+            />
           ))}
         </div>
       </div>
