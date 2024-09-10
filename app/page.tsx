@@ -1,5 +1,8 @@
 import { createClient } from "@/supabase/client";
 import Card from "@/components/card";
+import { notFound } from "next/navigation";
+
+export const revalidate = 0;
 
 export default async function Home() {
   // const products = [
@@ -13,12 +16,17 @@ export default async function Home() {
   //   },
   // ];
   const supabase = createClient();
+  const { data: topProducts, error: topProductsErrors } = await supabase
+    .from("easysell-products")
+    .select()
+    .eq("boost", "true");
+
   const { data: products, error } = await supabase
     .from("easysell-products")
     .select();
   // console.log(data);
   if (!products) {
-    return <p>NO PRODUCTS</p>;
+    return notFound()
   }
   return (
     <main className="min-h-screen mx-auto max-w-[100rem]">
@@ -29,13 +37,13 @@ export default async function Home() {
             <p className="text-xl">You can pay to boost your products here.</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-12">
-            {products.map((product) => (
+            {topProducts ? (topProducts.map((product) => (
               <Card
                 key={`${product.name}-${product.id}`}
                 {...product}
                 imageUrl={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
               />
-            ))}
+            ))):(<p className="pt-16 text-xl text-gray-800">All are products are gone...</p>)}
           </div>
         </div>
         <h2 className="text-4xl mt-20 mb-16">ALL PRODUCTS</h2>
