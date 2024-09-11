@@ -24,7 +24,6 @@ export default async function Home() {
   const { data: products, } = await supabase
     .from("easysell-products")
     .select();
-  // console.log(data);
   if (!products) {
     return notFound()
   }
