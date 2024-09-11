@@ -2,7 +2,7 @@ import { createClient } from "@/supabase/client";
 import Card from "@/components/card";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function Home() {
   // const products = [
@@ -16,12 +16,12 @@ export default async function Home() {
   //   },
   // ];
   const supabase = createClient();
-  const { data: topProducts, error: topProductsErrors } = await supabase
+  const { data: topProducts } = await supabase
     .from("easysell-products")
     .select()
     .eq("boost", "true");
 
-  const { data: products, error } = await supabase
+  const { data: products, } = await supabase
     .from("easysell-products")
     .select();
   // console.log(data);
