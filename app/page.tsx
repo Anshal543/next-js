@@ -40,7 +40,7 @@ export default async function Home() {
               <Card
                 key={`${product.name}-${product.id}`}
                 {...product}
-                imageUrl={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
+                imageUrl={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
               />
             ))):(<p className="pt-16 text-xl text-gray-800">All are products are gone...</p>)}
           </div>
@@ -51,7 +51,7 @@ export default async function Home() {
             <Card
               key={`${product.name}-${product.id}`}
               {...product}
-              imageUrl={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
+              imageUrl={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/storage/${product.imageUrl}`}
             />
           ))}
         </div>

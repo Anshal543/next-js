@@ -46,7 +46,7 @@ const Page = async ({ params }: Props) => {
             height={600}
             alt={data.name}
             // src={getImageUrl(data.imageUrl)}
-            src={`${process.env.SUPABASE_URL}/storage/v1/object/public/storage/${data.imageUrl}`}
+            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/storage/${data.imageUrl}`}
           />
         </div>
         <div className="bg-gray-953 p-6 w-full">
