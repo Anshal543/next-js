@@ -1,6 +1,7 @@
 "use client";
 
 import { sellYourItemAction } from "@/actions";
+import { SubmitButton } from "@/components/submit-button";
 import { useFormState } from "react-dom";
 
 const initialState = {
@@ -90,13 +91,7 @@ const UploadFormPage: React.FC = () => {
             )}
           </div>
 
-          {/* <SubmitButton /> */}
-          <button
-            type="submit"
-            className="bg-green-900 text-white px-4 py-2 rounded-md w-full"
-          >
-            Submit
-          </button>
+          <SubmitButton />
         </form>
       </div>
     </div>

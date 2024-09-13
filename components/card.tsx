@@ -29,6 +29,7 @@ const Card: React.FC<CardProps> = ({
               layout="fill"
               alt={name}
               className="rounded-t"
+              sizes="100%"
             />
           </div>
           <div className="px-6 py-4">
