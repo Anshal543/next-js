@@ -1,10 +1,42 @@
 import { createClient } from "@/supabase/client";
+import { getCanonicalUrl, getImageUrl } from "@/utils";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import React from "react";
 
 type Props = {
   params: { slug: string };
 };
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.slug
+ 
+  const supabase = createClient();
+  const { data:product } = await supabase
+  .from("easysell-products")
+  .select()
+  .match({ id })
+  .single();
+  if (!product) {
+    return {title:"", description:""};
+  }
+ 
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      images: [getImageUrl(product.imageUrl)],
+    },
+    alternates:{
+      canonical: `${getCanonicalUrl()}/products/${id}`,
+    }
+  }
+}
+
 
 export async function generateStaticParams() {
   const supabase = createClient();
@@ -45,8 +77,8 @@ const Page = async ({ params }: Props) => {
             width={600}
             height={600}
             alt={data.name}
-            // src={getImageUrl(data.imageUrl)}
-            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/storage/${data.imageUrl}`}
+            src={getImageUrl(data.imageUrl)}
+            // src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/storage/${data.imageUrl}`}
           />
         </div>
         <div className="bg-gray-953 p-6 w-full">

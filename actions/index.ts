@@ -1,6 +1,6 @@
 "use server";
 
-import { z } from "zod";
+import { z,Schema } from "zod";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
@@ -21,7 +21,7 @@ export async function sellYourItemAction(prevState: any, formData: FormData) {
   console.log(formData.get("price"));
   console.log(formData.get("imageUrl"));
 
-  const schema = z.object({
+  const schema:Schema = z.object({
     name: z.string().min(4),
     description: z.string().min(5),
     contactEmail: z.string().min(1).email("this is not a valid email address"),

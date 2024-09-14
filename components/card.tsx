@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({
             <Image
               src={imageUrl}
               style={{ objectFit: "cover" }}
-              layout="fill"
+              fill
               alt={name}
               className="rounded-t"
               sizes="100%"
