@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "Easy SEll - Upload",
   description:
     "Upload your products easily using Easy Sell",
-  openGraph: {
-    images: [`${getCanonicalUrl()}/assets/og-image.png`],
-  },
+  // openGraph: {
+  //   images: [`${getCanonicalUrl()}/assets/og-image.png`],
+  // },
   alternates: {
-    canonical: `${getCanonicalUrl()}/products/upload`,
+    canonical: `/products/upload`,
   },
 };
 

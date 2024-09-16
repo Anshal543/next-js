@@ -5,16 +5,7 @@ import { notFound } from "next/navigation";
 export const revalidate = 3600;
 
 export default async function Home() {
-  // const products = [
-  //   {
-  //     id: 0,
-  //     name: "Mushroom Orange Lamp",
-  //     description: "Mushroom Orange Lamp desc",
-  //     price: 100,
-  //     imageUrl:
-  //       "http://res.cloudinary.com/anshal/image/upload/v1725383949/kwx7etferjsufhumozom.jpg",
-  //   },
-  // ];
+
   const supabase = createClient();
   const { data: topProducts } = await supabase
     .from("easysell-products")

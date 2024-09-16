@@ -2,16 +2,21 @@
 
 import { sellYourItemAction } from "@/actions";
 import { SubmitButton } from "@/components/submit-button";
+import { FormState } from "@/types/upload-types";
 import { useFormState } from "react-dom";
+
 
 const initialState = {
   message: "",
   errors: null,
+  type:undefined
 };
 
+
+
 const UploadFormPage: React.FC = () => {
-  const [state, formAction] = useFormState<any>(
-    sellYourItemAction as any,
+  const [state, formAction] = useFormState<FormState, FormData>(
+    sellYourItemAction,
     initialState
   );
   return (
@@ -99,3 +104,6 @@ const UploadFormPage: React.FC = () => {
 };
 
 export default UploadFormPage;
+
+
+
